@@ -1,0 +1,9 @@
+{
+  "name": "PalaceBot",
+  "version": "0.1.0",
+  "description": "The Official Palace Network Discord bot",
+  "main": "index.js",
+  "author": "Palace Interactive",
+  "license": "MIT",
+  "private": true
+}
