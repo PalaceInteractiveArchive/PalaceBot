@@ -1,9 +1,31 @@
 {
-  "name": "PalaceBot",
+  "name": "palacebot",
   "version": "0.1.0",
   "description": "The Official Palace Network Discord bot",
   "main": "index.js",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "yarn run type-check --watch",
+    "start": "babel-node -x \".ts\" src/index.ts",
+    "dev": "nodemon"
+  },
   "author": "Palace Interactive",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "discord.js": "^12.4.1",
+    "reflect-metadata": "^0.1.13"
+  }
 }
