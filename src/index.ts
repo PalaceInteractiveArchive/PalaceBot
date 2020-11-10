@@ -2,7 +2,7 @@ import { Logger } from "./logger";
 import { DiscordBot } from "./server";
 
 import cmdLingArgs from 'command-line-args';
-const config: IConfig = require("./config/production");
+import { config }  from "./config/production"
 
 const options = [
     { name: "swears", alias: "s", type: String}

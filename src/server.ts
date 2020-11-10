@@ -5,6 +5,7 @@ import fs from "fs-extra";
 
 import { Command } from "./command/command";
 import { CommandResponse } from "./command/commands/command";
+import { IConfig } from "./defs";
 
 export interface UserCanAccept {
     username: string;
@@ -28,18 +29,12 @@ interface UserTimeouts {
 export class DiscordBot {
     public client: discord.Client;
     private command: Command;
-    // public socket: Socket;
-
-    private canAccept: UserCanAccept[] = [];
-    private userTimeouts: UserTimeouts[] = [];
 
     // TODO: Add a swear filter to the bot
     // private swears: string[] = [];
 
     constructor(private config: IConfig, private swearFileLocation: string) {
         this.client = new discord.Client();
-
-        // this.socket = new Socket(this);
         this.command = new Command(this);
     }
 
