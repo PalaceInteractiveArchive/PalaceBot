@@ -2,13 +2,13 @@ import { ICommand, CommandResponse } from "./command";
 import { DiscordBot } from "../../server";
 import { config } from "../../config/production";
 
-export class IP implements ICommand {
-    commandName: string = "ip";
+export class Rules implements ICommand {
+    commandName: string = "rules";
 
     buildResponse(user: number, message: any, bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `You can join using Minecraft: Java Edition ${config.minecraftVersion} using the IP ${config.minecraftIP}!`,
+                response: `You can remind yourself of our Community Rules over at ${config.rulesAddress}!`,
                 channelId: message.channel,
                 mention: true
             }
