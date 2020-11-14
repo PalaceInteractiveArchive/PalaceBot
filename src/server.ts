@@ -1,7 +1,7 @@
 import "reflect-metadata";
 
 import * as discord from "discord.js";
-import fs from "fs-extra";
+// import fs from "fs-extra";
 
 import { Command } from "./command/command";
 import { CommandResponse } from "./command/commands/command";
@@ -72,7 +72,7 @@ export class DiscordBot {
     }
 
     getPalaceGuild(): discord.Guild {
-        let palaceId = "275444756606831745";
+        let palaceId = "516147385110495232";
         let returnedGuild: discord.Guild = null;
         
         return returnedGuild = this.client.guilds.resolve(palaceId);

@@ -1,1 +1,4 @@
-node_modules
+src/config/production.ts
+node_modules/
+*.log
+dist/
