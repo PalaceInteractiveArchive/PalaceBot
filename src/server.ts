@@ -6,6 +6,7 @@ import * as discord from "discord.js";
 import { Command } from "./command/command";
 import { CommandResponse } from "./command/commands/command";
 import { IConfig } from "./defs";
+import { Logger } from "./logger";
 
 export interface UserCanAccept {
     username: string;
@@ -33,7 +34,7 @@ export class DiscordBot {
     // TODO: Add a swear filter to the bot
     // private swears: string[] = [];
 
-    constructor(private config: IConfig, private swearFileLocation: string) {
+    constructor(private config: IConfig, public logger: Logger, private swearFileLocation: string) {
         this.client = new discord.Client();
         this.command = new Command(this);
     }
@@ -46,8 +47,8 @@ export class DiscordBot {
         });
 
         this.client.on("message", (message: discord.Message) => {
-            // this.logger.debug(`Incoming Message: ${message.content}`);
-
+            console.log(`Incoming Message: ${message.content}`);
+            // this.logger.log(`Incoming Message:  ${message.content}`);
             if (message.content[0] === "!" && message.content[1] !== " ") {
                 let regex: RegExp = /!(\D+)/;
                 try {

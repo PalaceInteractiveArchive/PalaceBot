@@ -9,9 +9,9 @@ export class Logger {
      * @param {string} message
      * @memberof Logger
      */
-    // log(message: string) {
-    //     console.log(color.green("INFO: ") + color.white(message));
-    // }
+    log(message: string) {
+        console.log(color.green("INFO: ") + color.white(message));
+    }
 
     /**
      * Send a warning message
@@ -30,17 +30,17 @@ export class Logger {
      * @param {string} message
      * @memberof Logger
      */
-    // err(message: string) {
-    //     console.log(color.red("ERR: ") + color.white(message));
-    // }
+    err(message: string) {
+        console.log(color.red("ERR: ") + color.white(message));
+    }
 
-    // debug(message: string | Object) {
-    //     let toLog = "";
-    //     if (message instanceof Object) {
-    //         toLog = JSON.stringify(message);
-    //     } else {
-    //         toLog = message;
-    //     }
-    //     console.log(color.blue("DEBUG: ") + color.white(toLog));
-    // }
+    debug(message: string | Object) {
+        let toLog = "";
+        if (message instanceof Object) {
+            toLog = JSON.stringify(message);
+        } else {
+            toLog = message;
+        }
+        console.log(color.blue("DEBUG: ") + color.white(toLog));
+    }
 }
