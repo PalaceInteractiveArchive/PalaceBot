@@ -69,6 +69,10 @@ export class DiscordBot {
                     return;
                 }
             }
+            if (message.content.includes("bot") && message.channel.id === "777224676803346472") {
+                message.react('👋🏻');
+                message.reply(`Hi! I am the Palace Bot, I only respond to commands. Please use **!help** for the supported commands!`);
+            }
         })
         this.client.login(this.config.token);
     }
