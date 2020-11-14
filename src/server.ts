@@ -59,6 +59,7 @@ export class DiscordBot {
                         if (response !== null) {
                             if (response.mention) {
                                 message.reply(response.response);
+                                message.delete();
                             } else {
                                 message.channel.send(response.response);
                             }
