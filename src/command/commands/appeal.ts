@@ -8,7 +8,7 @@ export class Appeal implements ICommand {
     buildResponse(user: number, message: any, bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `If you have been banned off our server you can submit an appeal on our forums ${config.appealAddress}!`,
+                response: `If you have been banned off our server you can submit an appeal on our forums ${config.appealAddress}.`,
                 channelId: message.channel,
                 mention: true
             }

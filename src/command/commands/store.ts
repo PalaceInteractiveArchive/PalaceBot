@@ -8,7 +8,7 @@ export class Store implements ICommand {
     buildResponse(user: number, message: any, bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `If you fancy a rank upgrade head over to ${config.storeAddress}!`,
+                response: `If you fancy a rank upgrade head over to ${config.storeAddress}.`,
                 channelId: message.channel,
                 mention: true
             }

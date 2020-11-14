@@ -8,7 +8,7 @@ export class IP implements ICommand {
     buildResponse(user: number, message: any, bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `You can join using Minecraft: Java Edition ${config.minecraftVersion} using the IP ${config.minecraftIP}!`,
+                response: `You can join using Minecraft: Java Edition ${config.minecraftVersion} using the IP ${config.minecraftIP}.`,
                 channelId: message.channel,
                 mention: true
             }

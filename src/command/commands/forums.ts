@@ -8,7 +8,7 @@ export class Forums implements ICommand {
     buildResponse(user: number, message: any, bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `You want to join our Community Forums? Head over to ${config.forumsAddress}!`,
+                response: `You want to join our Community Forums? Head over to ${config.forumsAddress}.`,
                 channelId: message.channel,
                 mention: true
             }

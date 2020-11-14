@@ -69,9 +69,14 @@ export class DiscordBot {
                     return;
                 }
             }
-            if (message.content.includes("bot") && message.channel.id === "777224676803346472") {
+            if (message.content === "bot" || message.content === "Hey bot" || message.content === "Hi bot" && message.channel.id === "777224676803346472") {
                 message.react('👋🏻');
                 message.reply(`Hi! I am the Palace Bot, I only respond to commands. Please use **!help** for the supported commands!`);
+            }
+            if (message.content === "I love you Palace Bot!") {
+                const attachment = new discord.MessageAttachment('https://media.giphy.com/media/XftasWlvGSB7tL2d3l/giphy.gif');
+                message.react('❤️');
+                message.reply(attachment);
             }
         })
         this.client.login(this.config.token);

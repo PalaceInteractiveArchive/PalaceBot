@@ -8,7 +8,7 @@ export class Rules implements ICommand {
     buildResponse(user: number, message: any, bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `You can remind yourself of our Community Rules over at ${config.rulesAddress}!`,
+                response: `You can remind yourself of our Community Rules over at ${config.rulesAddress}.`,
                 channelId: message.channel,
                 mention: true
             }
