@@ -1,6 +1,6 @@
 import { ICommand, CommandResponse } from "./command";
 import { DiscordBot } from "../../server";
-import { config } from "../../config/production";
+import config  from "../../config/config.json";
 
 export class IP implements ICommand {
     commandName: string = "ip";
