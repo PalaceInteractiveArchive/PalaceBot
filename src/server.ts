@@ -57,10 +57,12 @@ export class DiscordBot {
                     return;
                 }
             }
+
             if (message.mentions.has(this.client.user)) {
                 message.react('👋🏻');
                 message.reply(`Hello! I am the Palace Discord Bot! I can only really respond to commands. Please use **!help** for a list of commands!`);
             }
+            
             if (message.content === "I love you Palace Bot!") {
                 const attachment = new discord.MessageAttachment('https://media.giphy.com/media/XftasWlvGSB7tL2d3l/giphy.gif');
                 message.react('❤️');

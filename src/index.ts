@@ -15,4 +15,8 @@ const discord: DiscordBot = new DiscordBot(config, args.swears);
 
 console.log("Attempting to establish Discord connection...");
 
-discord.connect();
+try {
+    discord.connect();
+} catch (e) {
+    console.error(e);
+}
