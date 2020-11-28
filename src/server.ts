@@ -8,17 +8,6 @@ import { CommandResponse } from "./command/commands/command";
 import { IConfig } from "./defs";
 import { Logger } from "./logger";
 
-export interface UserCanAccept {
-    username: string;
-    uuid: string;
-    discordUsername: string;
-    rank: string;
-}
-
-interface UserTimeouts {
-    discordInfo: string;
-    timeout: any;
-}
 
 
 /**
@@ -34,20 +23,19 @@ export class DiscordBot {
     // TODO: Add a swear filter to the bot
     // private swears: string[] = [];
 
-    constructor(private config: IConfig, public logger: Logger, private swearFileLocation: string) {
+    constructor(private config: IConfig, public logger: Logger) {
         this.client = new discord.Client();
         this.command = new Command(this);
     }
 
     connect() {
-        this.client.on("ready", () => {
-            console.log("Succesfully connected to Discord.");
+        this.client.once("ready", () => {
             this.getPalaceGuild();
             this.client.user.setActivity('Palace Network', {type: 'WATCHING'});
+            console.log("Succesfully connected to Discord.");
         });
 
         this.client.on("message", (message: discord.Message) => {
-            console.log(`Incoming Message: ${message.content}`);
             // this.logger.log(`Incoming Message:  ${message.content}`);
             if (message.content[0] === "!" && message.content[1] !== " ") {
                 let regex: RegExp = /!(\D+)/;
@@ -64,21 +52,21 @@ export class DiscordBot {
                                 message.channel.send(response.response);
                             }
                         }
-                    })
+                    });
                 } catch (e) {
                     return;
                 }
             }
-            if (message.content === "bot" || message.content === "Hey bot" || message.content === "Hi bot" && message.channel.id === "777224676803346472") {
+            if (message.mentions.has(this.client.user)) {
                 message.react('👋🏻');
-                message.reply(`Hi! I am the Palace Bot, I only respond to commands. Please use **!help** for the supported commands!`);
+                message.reply(`Hello! I am the Palace Discord Bot! I can only really respond to commands. Please use **!help** for a list of commands!`);
             }
             if (message.content === "I love you Palace Bot!") {
                 const attachment = new discord.MessageAttachment('https://media.giphy.com/media/XftasWlvGSB7tL2d3l/giphy.gif');
                 message.react('❤️');
                 message.reply(attachment);
             }
-        })
+        });
         this.client.login(this.config.token);
     }
 
