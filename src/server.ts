@@ -36,7 +36,6 @@ export class DiscordBot {
         });
 
         this.client.on("message", (message: discord.Message) => {
-            // this.logger.log(`Incoming Message:  ${message.content}`);
             if (message.content[0] === "!" && message.content[1] !== " ") {
                 let regex: RegExp = /!(\D+)/;
                 try {

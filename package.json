@@ -7,7 +7,8 @@
     "type-check": "tsc --noEmit",
     "type-check:watch": "yarn run type-check --watch",
     "start": "babel-node -x \".ts\" src/index.ts",
-    "dev": "nodemon"
+    "dev": "nodemon --config nodemon.json src/index.ts",
+    "dev:debug": "nodemon --config nodemon.json --inspect-brk src/index.ts"
   },
   "author": "Palace Interactive",
   "license": "MIT",

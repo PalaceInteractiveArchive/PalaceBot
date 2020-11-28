@@ -1,4 +1,4 @@
-src/config/production.ts
+src/config/config.json
 node_modules/
 *.log
 dist/

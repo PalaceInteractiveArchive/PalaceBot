@@ -1,4 +1,4 @@
-import * as color from "colors/safe";
+import colors from "colors";
 
 
 export class Logger {
@@ -10,7 +10,7 @@ export class Logger {
      * @memberof Logger
      */
     log(message: string) {
-        console.log(color.green("INFO: ") + color.white(message));
+        console.log(colors.green("INFO: ") + colors.white(message));
     }
 
     /**
@@ -19,9 +19,9 @@ export class Logger {
      * @param {string} message
      * @memberof Logger
      */
-    // warn(message: string) {
-    //     console.log(color.yellow("WARN: ") + color.white(message));
-    // }
+    warn(message: string) {
+        console.log(colors.yellow("WARN: ") + colors.white(message));
+    }
     
 
     /**
@@ -31,7 +31,7 @@ export class Logger {
      * @memberof Logger
      */
     err(message: string) {
-        console.log(color.red("ERR: ") + color.white(message));
+        console.log(colors.red("ERR: ") + colors.white(message));
     }
 
     debug(message: string | Object) {
@@ -41,6 +41,7 @@ export class Logger {
         } else {
             toLog = message;
         }
-        console.log(color.blue("DEBUG: ") + color.white(toLog));
+        console.log("DEBUG: ".blue + toLog.white);
+        // console.log(color.blue("DEBUG: ") + color.white(toLog));
     }
 }

@@ -11,12 +11,12 @@ const options = [
 const args = cmdLingArgs(options);
 
 const logger: Logger = new Logger();
-const discord: DiscordBot = new DiscordBot(config, args.swears);
+const discord: DiscordBot = new DiscordBot(config, logger);
 
 console.log("Attempting to establish Discord connection...");
 
 try {
     discord.connect();
-} catch (e) {
-    console.error(e);
+} catch (error) {
+    logger.err(error);
 }
