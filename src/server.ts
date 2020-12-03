@@ -32,6 +32,8 @@ export class DiscordBot {
         this.client.once("ready", () => {
             this.getPalaceGuild();
             this.client.user.setActivity('Palace Network', {type: 'WATCHING'});
+            const botCH = this.client.channels.cache.get("777224676803346472") as discord.TextChannel;
+            botCH.send("Have no fear! The Palace Bot is here! 😎");
             console.log("Succesfully connected to Discord.");
         });
 
@@ -57,7 +59,7 @@ export class DiscordBot {
                 }
             }
 
-            if (message.mentions.has(this.client.user)) {
+            if (message.mentions.has(this.client.user) && !message.mentions.everyone) {
                 message.react('👋🏻');
                 message.reply(`Hello! I am the Palace Discord Bot! I can only really respond to commands. Please use **!help** for a list of commands!`);
             }
