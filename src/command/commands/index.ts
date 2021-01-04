@@ -1,4 +1,4 @@
-import { ICommand } from "./command";
+import { Command } from "./command";
 import { Apply } from "./apply";
 import { IP } from "./ip";
 import { Appeal } from "./appeal";
@@ -7,4 +7,4 @@ import { Forums } from "./forums"
 import { Rules } from "./rules";
 import { Help } from "./help";
 
-export let commands: ICommand[] = [new Apply, new IP, new Appeal, new Store, new Forums, new Rules, new Help];
+export let commands: Command[] = [new Apply, new IP, new Appeal, new Store, new Forums, new Rules, new Help];

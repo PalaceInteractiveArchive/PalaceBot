@@ -1,14 +1,15 @@
-import { ICommand, CommandResponse } from "./command";
+import { Command, CommandResponse } from "./command";
 import { DiscordBot } from "../../server";
 import config  from "../../config/config.json";
 
-export class Forums implements ICommand {
+export class Forums implements Command {
     commandName: string = "forums";
+    commandAlias: string[] = ["website", "community"];
 
-    buildResponse(user: number, message: any, bot: DiscordBot): Promise<CommandResponse> {
+    buildResponse(user: number, message: any, args: string[], bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `You want to join our Community Forums? Head over to ${config.forumsAddress}.`,
+                response: `We have community forum where we often post content and have interactions with members of the community, you can check it out at ${config.forumsAddress}.`,
                 channelId: message.channel,
                 mention: true
             }

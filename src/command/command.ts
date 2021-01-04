@@ -1,4 +1,5 @@
 import { CommandResponse } from "./commands/command";
+import { Command } from "./commands/command";
 import { commands } from "./commands";
 
 import { DiscordBot } from "../server";
@@ -15,7 +16,7 @@ interface CommandMap {
  * @export
  * @class Command
  */
-export class Command {
+export class CommandManager {
     private commands: CommandMap = {};
 
     /**
@@ -24,9 +25,7 @@ export class Command {
      * @memberof Command
      */
     constructor(private bot: DiscordBot) {
-        commands.forEach(command => {
-            this.commands[command.commandName] = command.buildResponse;
-        })
+        commands.forEach(command => [command.commandName, ...command.commandAlias].forEach(c => this.commands[c] = command.buildResponse));
     }
 
     /**
@@ -39,6 +38,7 @@ export class Command {
      */
     public async runCommand(command: string, message: Discord.Message): Promise<CommandResponse> {
         if (this.commands[command] === undefined) return null;
-        return this.commands[command](message.author.id, message, this.bot);
+        const args = message.content.split(" ").splice(1);
+        return this.commands[command](message.author.id, message, args, this.bot);
     }
 }

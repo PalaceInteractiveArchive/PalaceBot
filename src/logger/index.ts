@@ -42,6 +42,5 @@ export class Logger {
             toLog = message;
         }
         console.log("DEBUG: ".blue + toLog.white);
-        // console.log(color.blue("DEBUG: ") + color.white(toLog));
     }
 }

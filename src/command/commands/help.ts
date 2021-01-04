@@ -1,10 +1,11 @@
 import { DiscordBot } from "../../server";
-import { Command } from "../command";
-import { CommandResponse, ICommand } from "./command";
+import { CommandResponse, Command } from "./command";
 
-export class Help implements ICommand {
+export class Help implements Command {
     commandName: string = "help";
-    buildResponse(user: number, message: any, bot: DiscordBot): Promise<CommandResponse> {
+    commandAlias: string[] = [""];
+
+    buildResponse(user: number, message: any, args: string[], bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             throw new Error("Method not implemented.");
         });

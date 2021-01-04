@@ -12,7 +12,9 @@ export interface CommandResponse {
     mention: boolean;
 }
 
-export interface ICommand {
+export interface Command {
     commandName: string;
-    buildResponse(user: number, message: any, bot: DiscordBot): Promise<CommandResponse>;
+    commandAlias: string[];
+
+    buildResponse(user: number, message: any, args: string[], bot: DiscordBot): Promise<CommandResponse>;
 }
