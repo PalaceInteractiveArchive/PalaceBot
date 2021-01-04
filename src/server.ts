@@ -1,9 +1,7 @@
-import "reflect-metadata";
-
 import * as discord from "discord.js";
 // import fs from "fs-extra";
 
-import { Command } from "./command/command";
+import { CommandManager } from "./command/command";
 import { CommandResponse } from "./command/commands/command";
 import { IConfig } from "./defs";
 import { Logger } from "./logger";
@@ -18,14 +16,14 @@ import { Logger } from "./logger";
  */
 export class DiscordBot {
     public client: discord.Client;
-    private command: Command;
+    private command: CommandManager;
 
     // TODO: Add a swear filter to the bot
     // private swears: string[] = [];
 
     constructor(private config: IConfig, public logger: Logger) {
         this.client = new discord.Client();
-        this.command = new Command(this);
+        this.command = new CommandManager(this);
     }
 
     connect() {
@@ -37,23 +35,23 @@ export class DiscordBot {
             console.log("Succesfully connected to Discord.");
         });
 
-        this.client.on("message", (message: discord.Message) => {
+        this.client.on("message", async (message: discord.Message) => {
             if (message.content[0] === "!" && message.content[1] !== " ") {
                 let regex: RegExp = /!(\D+)/;
                 try {
                     let commandName: string = regex.exec(message.content)[1];
-                    if (commandName === (null || undefined)) return;
+                    if (!commandName) return;
 
-                    this.command.runCommand(commandName, message).then((response: CommandResponse) => {
-                        if (response !== null) {
-                            if (response.mention) {
-                                message.reply(response.response);
-                                message.delete();
-                            } else {
-                                message.channel.send(response.response);
-                            }
+                    const response = await this.command.runCommand(commandName, message);
+
+                    if (response) {
+                        if (response.mention) {
+                            message.reply(response.response);
+                            setTimeout(() => message.delete(), 500);
+                        } else {
+                            message.channel.send(response.response);
                         }
-                    });
+                    }
                 } catch (e) {
                     return;
                 }
