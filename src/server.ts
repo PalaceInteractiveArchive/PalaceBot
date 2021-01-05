@@ -5,6 +5,7 @@ import { CommandManager } from "./command/command";
 import { CommandResponse } from "./command/commands/command";
 import { IConfig } from "./defs";
 import { Logger } from "./logger";
+import { profanities } from "profanities";
 
 
 
@@ -19,7 +20,7 @@ export class DiscordBot {
     private command: CommandManager;
 
     // TODO: Add a swear filter to the bot
-    private swears: string[] = ["fuck", "shit", "bitch", "rape"];
+    private swears: string[] = [];
 
     constructor(private config: IConfig, public logger: Logger) {
         this.client = new discord.Client();
@@ -42,13 +43,17 @@ export class DiscordBot {
 
 
             if (message.author.id !== this.client.user.id) {
-                for (let part in parts) {
-                    if (part !== (undefined || null || "")) {
-                        if (this.swears.indexOf(parts[part]) > -1) {
-                            message.delete();
-                            return;
-                        }
-                    }
+                // for (let part in parts) {
+                //     if (part !== (undefined || null || "")) {
+                //         if (this.swears.indexOf(parts[part]) > -1) {
+                //             message.delete();
+                //             return;
+                //         }
+                //     }
+                // }
+                if (profanities.includes(parts)) {
+                    message.delete();
+                    return;
                 }
             }
 
