@@ -1,6 +1,6 @@
 import * as discord from "discord.js";
 // import fs from "fs-extra";
-
+``
 import { CommandManager } from "./command/command";
 import { CommandResponse } from "./command/commands/command";
 import { IConfig } from "./defs";
@@ -36,11 +36,9 @@ export class DiscordBot {
         });
 
         this.client.on("message", async (message: discord.Message) => {
-            this.logger.debug(`Incoming Message: ${message.content}`);
 
-            const unsplit: string = message.content.replace(/`/g, "");
-            const parts: string[] = unsplit.split(" ");
 
+            const parts: string[] = message.content.split(" ");
             if (message.client.user.id !== this.client.user.id) {
                 for (let part in parts) {
                     if (part !== (undefined || null || "")) {
@@ -51,6 +49,20 @@ export class DiscordBot {
                     }
                 }
             }
+            // const unsplit: string = message.content.replace(/`/g, "");
+            // console.log(unsplit);
+            // // const parts: string[] = unsplit.split(" ");
+
+            // if (message.client.user.id !== this.client.user.id) {
+            //     for (let part in parts) {
+            //         if (part !== (undefined || null || "")) {
+            //             if (this.swears.indexOf(parts[part]) > -1) {
+            //                 message.delete();
+            //                 return;
+            //             }
+            //         }
+            //     }
+            // }
 
             if (message.content[0] === "!" && message.content[1] !== " ") {
                 let regex: RegExp = /!(\D+)/;
