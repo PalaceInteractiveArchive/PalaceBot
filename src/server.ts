@@ -1,14 +1,8 @@
 import * as discord from "discord.js";
-// import fs from "fs-extra";
-``
 import { CommandManager } from "./command/command";
-import { CommandResponse } from "./command/commands/command";
 import { IConfig } from "./defs";
 import { Logger } from "./logger";
 import profanities from 'profanities';
-// import { profanities } from "profanities";
-
-
 
 /**
  * Controlls all the main actions within the bot
@@ -32,8 +26,8 @@ export class DiscordBot {
         this.client.once("ready", () => {
             this.getPalaceGuild();
             this.client.user.setActivity('Palace Network', {type: 'WATCHING'});
-            // const botCH = this.client.channels.cache.get("777224676803346472") as discord.TextChannel;
-            // botCH.send("Have no fear! The Palace Bot is here! 😎");
+            const botCH = this.client.channels.cache.get("777224676803346472") as discord.TextChannel;
+            botCH.send("Have no fear! The Palace Bot is here! 😎");
             console.log("Succesfully connected to Discord.");
         });
 
@@ -52,22 +46,6 @@ export class DiscordBot {
                         }
                     }
                 }
-
-
-
-
-                // for (let part in parts) {
-                //     if (part !== (undefined || null || "")) {
-                //         if (this.swears.indexOf(parts[part]) > -1) {
-                //             message.delete();
-                //             return;
-                //         }
-                //     }
-                // }
-                // if (profanities.includes(parts)) {
-                //     message.delete();
-                //     return;
-                // }
             }
 
             if (message.content[0] === "!" && message.content[1] !== " ") {
