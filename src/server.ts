@@ -27,7 +27,7 @@ export class DiscordBot {
             this.getPalaceGuild();
             this.client.user.setActivity('Palace Network', {type: 'WATCHING'});
             const botCH = this.client.channels.cache.get("777224676803346472") as discord.TextChannel;
-            botCH.send("Have no fear! The Palace Bot is here! 😎");
+            //botCH.send("Have no fear! The Palace Bot is here! 😎");
             console.log("Succesfully connected to Discord.");
         });
 
@@ -41,6 +41,15 @@ export class DiscordBot {
                 for (let part in parts) {
                     if (part !== (undefined || null || "")) {
                         if (profanities.indexOf(parts[part]) > -1) {
+                            const embed = new discord.MessageEmbed()
+                                .setColor("#FF0000")
+                                .setAuthor(message.author.username, message.author.avatarURL())
+                                .setTitle("Moderation Log")
+                                .setDescription("The following message was deleted!")
+                                .addField("Sender", message.author)
+                                .addField("Message", message.content)
+                                .setTimestamp();
+                            message.channel.send(embed);
                             message.delete();
                             return;
                         }
