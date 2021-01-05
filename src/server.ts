@@ -19,7 +19,7 @@ export class DiscordBot {
     private command: CommandManager;
 
     // TODO: Add a swear filter to the bot
-    // private swears: string[] = [];
+    private swears: string[] = ["fuck", "shit", "bitch"];
 
     constructor(private config: IConfig, public logger: Logger) {
         this.client = new discord.Client();
@@ -30,12 +30,28 @@ export class DiscordBot {
         this.client.once("ready", () => {
             this.getPalaceGuild();
             this.client.user.setActivity('Palace Network', {type: 'WATCHING'});
-            const botCH = this.client.channels.cache.get("777224676803346472") as discord.TextChannel;
-            botCH.send("Have no fear! The Palace Bot is here! 😎");
+            // const botCH = this.client.channels.cache.get("777224676803346472") as discord.TextChannel;
+            // botCH.send("Have no fear! The Palace Bot is here! 😎");
             console.log("Succesfully connected to Discord.");
         });
 
         this.client.on("message", async (message: discord.Message) => {
+            this.logger.debug(`Incoming Message: ${message.content}`);
+
+            const unsplit: string = message.content.replace(/`/g, "");
+            const parts: string[] = unsplit.split(" ");
+
+            if (message.client.user.id !== this.client.user.id) {
+                for (let part in parts) {
+                    if (part !== (undefined || null || "")) {
+                        if (this.swears.indexOf(parts[part]) > -1) {
+                            message.delete();
+                            return;
+                        }
+                    }
+                }
+            }
+
             if (message.content[0] === "!" && message.content[1] !== " ") {
                 let regex: RegExp = /!(\D+)/;
                 try {
