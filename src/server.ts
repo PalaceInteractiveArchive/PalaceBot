@@ -40,8 +40,8 @@ export class DiscordBot {
         this.client.on("message", async (message: discord.Message) => {
 
 
-            const parts: string[] = message.content.split(" ");
-
+            const unsplit: string = message.content.replace(/`/g, "").toLowerCase();
+            const parts: string[] = unsplit.split(" ");
 
             if (message.author.id !== this.client.user.id) {
                 for (let part in parts) {
