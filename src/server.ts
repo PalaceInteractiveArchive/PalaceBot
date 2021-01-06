@@ -14,9 +14,6 @@ export class DiscordBot {
     public client: discord.Client;
     private command: CommandManager;
 
-    // TODO: Add a swear filter to the bot
-    private swears: string[] = [];
-
     constructor(private config: IConfig, public logger: Logger) {
         this.client = new discord.Client();
         this.command = new CommandManager(this);
@@ -28,7 +25,7 @@ export class DiscordBot {
             this.client.user.setActivity('Palace Network', {type: 'WATCHING'});
             const botCH = this.client.channels.cache.get("777224676803346472") as discord.TextChannel;
             botCH.send("Have no fear! The Palace Bot is here! 😎");
-            console.log("Succesfully connected to Discord.");
+            this.logger.log("Successfully connected to Discord!");
         });
 
         this.client.on("message", async (message: discord.Message) => {

@@ -9,7 +9,7 @@ export class IP implements Command {
     buildResponse(user: number, message: any, args: string[], bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `You can join using Minecraft: Java Edition ${config.minecraftVersion} using the IP ${config.minecraftIP}.`,
+                response: `You can join Palace Network via ${config.minecraftIP}. We currently support ${config.minecraftVersion}`,
                 channelId: message.channel,
                 mention: true
             }

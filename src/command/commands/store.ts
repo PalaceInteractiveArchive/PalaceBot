@@ -9,7 +9,7 @@ export class Store implements Command {
     buildResponse(user: number, message: any, args: string[], bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `If you fancy a rank upgrade head over to ${config.storeAddress}.`,
+                response: `the Palace Network online store offers several cosmetic and rank upgrades. If you'd like to support us, visit ${config.storeAddress}.`,
                 channelId: message.channel,
                 mention: true
             }

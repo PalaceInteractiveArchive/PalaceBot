@@ -9,7 +9,7 @@ export class Rules implements Command {
     buildResponse(user: number, message: any, args: string[], bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `You can remind yourself of our Community Rules over at ${config.rulesAddress}.`,
+                response: `Our community guidlines and polices are available for review at ${config.rulesAddress}.`,
                 channelId: message.channel,
                 mention: true
             }

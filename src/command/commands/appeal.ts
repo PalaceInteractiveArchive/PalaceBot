@@ -9,7 +9,7 @@ export class Appeal implements Command {
     buildResponse(user: number, message: any, args: string[], bot: DiscordBot): Promise<CommandResponse> {
         return new Promise<CommandResponse>((resolve, reject) => {
             const reponse: CommandResponse = {
-                response: `If you have been banned off our server you can submit an appeal on our forums ${config.appealAddress}.`,
+                response: `You can submit a ban appeal on our community forums ${config.appealAddress}.`,
                 channelId: message.channel,
                 mention: true
             }
