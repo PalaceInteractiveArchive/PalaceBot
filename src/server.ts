@@ -14,10 +14,10 @@ export class DiscordBot {
     public client: discord.Client;
     private command: CommandManager;
 
-    constructor(private config: IConfig) {
-        this.client = new discord.Client();
-        this.command = new CommandManager(this);
-    }
+    // constructor(private config: IConfig) {
+    //     this.client = new discord.Client();
+    //     this.command = new CommandManager(this);
+    // }
 
     connect() {
 

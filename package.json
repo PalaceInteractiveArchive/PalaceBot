@@ -32,6 +32,7 @@
     "discord.js": "^12.4.1",
     "fs-extra": "^9.0.1",
     "profanities": "^2.14.0",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "winston": "^3.3.3"
   }
 }
