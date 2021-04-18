@@ -1,12 +1,11 @@
-import { Logger } from "./logger";
 import { DiscordBot } from "./server";
 
 import config  from "./config/config.json"
+import Logger from "./utils/Logger";
 
-const logger: Logger = new Logger();
-const discord: DiscordBot = new DiscordBot(config, logger);
+const discord: DiscordBot = new DiscordBot(config);
 
-logger.log("Attempting to establish Discord connection...");
+Logger.log('info', 'Attempting to connect to discord...');
 
 try {
     discord.connect();

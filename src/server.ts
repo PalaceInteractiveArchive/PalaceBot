@@ -1,8 +1,8 @@
 import * as discord from "discord.js";
 import { CommandManager } from "./command/command";
 import { IConfig } from "./defs";
-import { Logger } from "./logger";
 import profanities from 'profanities';
+import Logger from "./utils/Logger";
 
 /**
  * Controlls all the main actions within the bot
@@ -14,19 +14,20 @@ export class DiscordBot {
     public client: discord.Client;
     private command: CommandManager;
 
-    constructor(private config: IConfig, public logger: Logger) {
+    constructor(private config: IConfig) {
         this.client = new discord.Client();
         this.command = new CommandManager(this);
     }
 
     connect() {
+
         this.client.once("ready", () => {
             this.getPalaceGuild();
-            this.client.user.setActivity('Palace Network', {type: 'WATCHING'});
+            this.client.user.setActivity('Palace Network', {type: 'PLAYING'});
             const botCH = this.client.channels.cache.get("777224676803346472") as discord.TextChannel;
-            botCH.send("Have no fear! The Palace Bot is here! 😎");
-            this.logger.log("Successfully connected to Discord!");
-        });
+            botCH.send('Palace Bot is online.');
+            Logger.log('info', 'Succesfully established a connection to discord');
+        })
 
         this.client.on("message", async (message: discord.Message) => {
 
@@ -61,15 +62,13 @@ export class DiscordBot {
                             message.channel.send(response.response);
                         }
                     }
-                } catch (e) {
-                    return;
+                } catch (error) {
+                    Logger.log('error', `${error}`);
                 }
             }
 
-            if (message.mentions.has(this.client.user) && !message.mentions.everyone) {
+            if (message.mentions.has(this.client.user) && !message.mentions.everyone || message.content.includes('palace bot')) {
                 message.react('👋🏻');
-                message.reply('Hello! I am the Palace Discord Bot! I can only really respond to commands. Please use **!help** for a list of commands!');
-            } else if (message.content.includes("palace bot")) {
                 message.reply('Hello! I am the Palace Discord Bot! I can only really respond to commands. Please use **!help** for a list of commands!');
             }
 
@@ -78,7 +77,8 @@ export class DiscordBot {
                 message.react('❤️');
                 message.reply(attachment);
             }
-        });
+        })
+
         this.client.login(this.config.token);
     }
 
