@@ -68,9 +68,11 @@ export class DiscordBot {
 
             if (message.mentions.has(this.client.user) && !message.mentions.everyone) {
                 message.react('👋🏻');
-                message.reply(`Hello! I am the Palace Discord Bot! I can only really respond to commands. Please use **!help** for a list of commands!`);
+                message.reply('Hello! I am the Palace Discord Bot! I can only really respond to commands. Please use **!help** for a list of commands!');
+            } else if (message.content.includes("palace bot")) {
+                message.reply('Hello! I am the Palace Discord Bot! I can only really respond to commands. Please use **!help** for a list of commands!');
             }
-            
+
             if (message.content === "I love you Palace Bot!") {
                 const attachment = new discord.MessageAttachment('https://media.giphy.com/media/XftasWlvGSB7tL2d3l/giphy.gif');
                 message.react('❤️');
@@ -83,7 +85,7 @@ export class DiscordBot {
     getPalaceGuild(): discord.Guild {
         let palaceId = "516147385110495232";
         let returnedGuild: discord.Guild = null;
-        
+
         return returnedGuild = this.client.guilds.resolve(palaceId);
     }
 
