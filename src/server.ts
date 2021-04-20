@@ -1,8 +1,8 @@
-import * as discord from "discord.js";
-import { CommandManager } from "./command/command";
-import { IConfig } from "./defs";
-import profanities from 'profanities';
-import Logger from "./utils/Logger";
+import * as discord from 'discord.js'
+import { CommandManager } from './command/command'
+import profanities from 'profanities'
+import Logger from "./utils/Logger"
+import config from './config/.env'
 
 /**
  * Controlls all the main actions within the bot
@@ -18,6 +18,8 @@ export class DiscordBot {
     //     this.client = new discord.Client();
     //     this.command = new CommandManager(this);
     // }
+
+    // change the config to .env
 
     connect() {
 
@@ -50,7 +52,7 @@ export class DiscordBot {
                 let regex: RegExp = /!(\D+)/;
                 try {
                     let commandName: string = regex.exec(message.content)[1];
-                    if (!commandName) return;
+                    if (!commandName) return
 
                     const response = await this.command.runCommand(commandName, message);
 
@@ -79,11 +81,11 @@ export class DiscordBot {
             }
         })
 
-        this.client.login(this.config.token);
+        this.client.login(config.discord.botToken);
     }
 
     getPalaceGuild(): discord.Guild {
-        let palaceId = "516147385110495232";
+        let palaceId = config.discord.guildId;
         let returnedGuild: discord.Guild = null;
 
         return returnedGuild = this.client.guilds.resolve(palaceId);
