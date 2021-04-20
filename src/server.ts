@@ -14,19 +14,23 @@ export class DiscordBot {
     public client: discord.Client;
     private command: CommandManager;
 
-    // constructor(private config: IConfig) {
-    //     this.client = new discord.Client();
-    //     this.command = new CommandManager(this);
-    // }
-
-    // change the config to .env
+    constructor() {
+        this.client = new discord.Client();
+        this.command = new CommandManager(this);
+    }
 
     connect() {
 
         this.client.once("ready", () => {
             this.getPalaceGuild();
             this.client.user.setActivity('Palace Network', {type: 'PLAYING'});
-            const botCH = this.client.channels.cache.get("777224676803346472") as discord.TextChannel;
+
+            const botCH = this.client.channels.cache.get('') as discord.TextChannel;
+            if (botCH === null) {
+                Logger.warn('Palace Bot could not find that channel!');
+                this.client.destroy();
+            }
+
             botCH.send('Palace Bot is online.');
             Logger.log('info', 'Succesfully established a connection to discord');
         })
