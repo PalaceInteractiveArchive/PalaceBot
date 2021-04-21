@@ -20,22 +20,21 @@ export class DiscordBot {
     }
 
     connect() {
-
         this.client.once("ready", () => {
-            this.getPalaceGuild();
-            this.client.user.setActivity('Palace Network', {type: 'PLAYING'});
-
-            const botCH = this.client.channels.cache.get('') as discord.TextChannel;
-            if (botCH === null) {
-                Logger.warn('Palace Bot could not find that channel!');
-                this.client.destroy();
+            const currentGuild: discord.Guild = this.getPalaceGuild();
+            let logCh = currentGuild.channels.cache.get('827145698582462484') as discord.TextChannel;
+            if (!logCh) {
+                Logger.error('Palace Bot could not locate the channel. Failed to start the bot.');
+                process.exit()
             }
 
-            botCH.send('Palace Bot is online.');
-            Logger.log('info', 'Succesfully established a connection to discord');
+            logCh.send(`Palace Bot is Online!`)
+            this.client.user.setActivity('Palace Network', {type: 'PLAYING'});
+            Logger.info('Sucessfully established a connection to discord');
         })
 
         this.client.on("message", async (message: discord.Message) => {
+
 
 
             const unsplit: string = message.content.replace(/`/g, "").toLowerCase();
@@ -63,7 +62,8 @@ export class DiscordBot {
                     if (response) {
                         if (response.mention) {
                             message.reply(response.response);
-                            setTimeout(() => message.delete(), 500);
+                            message.react('✅');
+                            // setTimeout(() => message.delete(), 500);
                         } else {
                             message.channel.send(response.response);
                         }
@@ -75,7 +75,7 @@ export class DiscordBot {
 
             if (message.mentions.has(this.client.user) && !message.mentions.everyone || message.content.includes('palace bot')) {
                 message.react('👋🏻');
-                message.reply('Hello! I am the Palace Discord Bot! I can only really respond to commands. Please use **!help** for a list of commands!');
+                message.reply('Hey! I am Palace Bot! I can only really respond to commands. Please use **!help** for a list of valid commands.');
             }
 
             if (message.content === "I love you Palace Bot!") {
