@@ -3,6 +3,7 @@ import { CommandManager } from "./command/command";
 import { IConfig } from "./defs";
 import { Logger } from "./logger";
 import profanities from 'profanities';
+import Rank from "./ranks";
 
 /**
  * Controlls all the main actions within the bot
@@ -23,7 +24,7 @@ export class DiscordBot {
         this.client.once("ready", () => {
             this.getPalaceGuild();
             this.client.user.setActivity('Palace Network', {type: 'WATCHING'});
-            const botCH = this.client.channels.cache.get("777224676803346472") as discord.TextChannel;
+            const botCH = this.client.channels.cache.get("827145698582462484") as discord.TextChannel;
             botCH.send("Have no fear! The Palace Bot is here! 😎");
             this.logger.log("Successfully connected to Discord!");
         });
@@ -83,10 +84,29 @@ export class DiscordBot {
     }
 
     getPalaceGuild(): discord.Guild {
-        let palaceId = "516147385110495232";
+        let palaceId = process.env.guildId;
         let returnedGuild: discord.Guild = null;
 
         return returnedGuild = this.client.guilds.resolve(palaceId);
+    }
+
+    setUserRole(roles: Rank[], user: string, username: string) {
+        let removeUserRoles = true;
+        this.getPalaceGuild().members.fetch().then((members: discord.Collection<string, discord.GuildMember>) => {
+            let member = members.find(member => member.id == user);
+            if (member !== undefined) {
+                if (removeUserRoles) {
+                    member.roles.set([])
+                    .catch(err => console.log("Error " + err));
+                }
+                roles.forEach((role) => {
+                    member.roles.add(role.toString())
+                    .catch(err => console.log("Error " + err));
+                })
+                member.setNickname(username, "Updated via PalaceBot")
+                .catch(err => console.log("Error " + err));
+            }
+        })
     }
 
 }
