@@ -115,6 +115,7 @@ export default class MessageQueue {
                                         }
                                         if (index === tags.length -1) resolve();
                                     });
+                                    if (tags.length == 0) resolve();
                                 })
 
                                 tagLoop.then(() => {
