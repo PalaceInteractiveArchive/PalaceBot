@@ -1,5 +1,7 @@
-src/config/config.json
+src/config/*
 node_modules/
 *.log
 dist/
 .env
+log
+

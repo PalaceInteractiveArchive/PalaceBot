@@ -9,11 +9,11 @@ const logger: Logger = new Logger();
 const discord: DiscordBot = new DiscordBot(config, logger);
 const messageQueue: MessageQueue = new MessageQueue(discord);
 
-logger.log("Attempting to establish Discord connection...");
+Logger.log('info', 'Attempting to connect to discord...');
 
 try {
     discord.connect();
     messageQueue.initQueue();
 } catch (error) {
-    logger.err(error);
+    Logger.log('error', error);
 }
