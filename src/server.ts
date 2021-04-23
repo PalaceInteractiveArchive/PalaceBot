@@ -1,8 +1,9 @@
-import * as discord from 'discord.js'
-import { CommandManager } from './command/command'
-import profanities from 'profanities'
+import * as discord from "discord.js";
+import { CommandManager } from "./command/command";
 import Logger from "./utils/Logger"
 import config from './config/.env'
+import profanities from 'profanities';
+import Rank from "./ranks";
 
 /**
  * Controlls all the main actions within the bot
@@ -93,6 +94,25 @@ export class DiscordBot {
         let returnedGuild: discord.Guild = null;
 
         return returnedGuild = this.client.guilds.resolve(palaceId);
+    }
+
+    setUserRole(roles: Rank[], user: string, username: string) {
+        let removeUserRoles = true;
+        this.getPalaceGuild().members.fetch().then((members: discord.Collection<string, discord.GuildMember>) => {
+            let member = members.find(member => member.id == user);
+            if (member !== undefined) {
+                if (removeUserRoles) {
+                    member.roles.set([])
+                    .catch(err => console.log("Error " + err));
+                }
+                roles.forEach((role) => {
+                    member.roles.add(role.toString())
+                    .catch(err => console.log("Error " + err));
+                })
+                member.setNickname(username, "Updated via PalaceBot")
+                .catch(err => console.log("Error " + err));
+            }
+        })
     }
 
 }
