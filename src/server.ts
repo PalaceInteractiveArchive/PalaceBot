@@ -23,7 +23,7 @@ export class DiscordBot {
     connect() {
         this.client.once("ready", () => {
             const currentGuild: discord.Guild = this.getPalaceGuild();
-            let logCh = currentGuild.channels.cache.get('827145698582462484') as discord.TextChannel;
+            let logCh = currentGuild.channels.cache.get('679517757519167503') as discord.TextChannel;
             if (!logCh) {
                 Logger.error('Palace Bot could not locate the channel. Failed to start the bot.');
                 process.exit()
