@@ -5,6 +5,5 @@ import { Appeal } from "./appeal";
 import { Store } from "./store";
 import { Forums } from "./forums"
 import { Rules } from "./rules";
-import { Help } from "./help";
 
-export let commands: Command[] = [new Apply, new IP, new Appeal, new Store, new Forums, new Rules, new Help];
+export let commands: Command[] = [new Apply, new IP, new Appeal, new Store, new Forums, new Rules];

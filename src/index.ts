@@ -1,12 +1,10 @@
-import 'dotenv/config';
-import { Logger } from "./logger";
+require('dotenv').config()
+import Logger from "./utils/Logger";
 import { DiscordBot } from "./server";
 
-import config  from "./config/config.json"
 import MessageQueue from './mq';
 
-const logger: Logger = new Logger();
-const discord: DiscordBot = new DiscordBot(config, logger);
+const discord: DiscordBot = new DiscordBot();
 const messageQueue: MessageQueue = new MessageQueue(discord);
 
 Logger.log('info', 'Attempting to connect to discord...');

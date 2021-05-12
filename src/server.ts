@@ -1,7 +1,7 @@
 import * as discord from "discord.js";
 import { CommandManager } from "./command/command";
 import Logger from "./utils/Logger"
-import config from './config/.env'
+import config from './config/config.json'
 import profanities from 'profanities';
 import Rank from "./ranks";
 
@@ -86,11 +86,11 @@ export class DiscordBot {
             }
         })
 
-        this.client.login(config.discord.botToken);
+        this.client.login(process.env.token);
     }
 
     getPalaceGuild(): discord.Guild {
-        let palaceId = config.discord.guildId;
+        let palaceId = process.env.guildId;
         let returnedGuild: discord.Guild = null;
 
         return returnedGuild = this.client.guilds.resolve(palaceId);
