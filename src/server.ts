@@ -35,22 +35,20 @@ export class DiscordBot {
         })
 
         this.client.on("message", async (message: discord.Message) => {
+            
+            // const unsplit: string = message.content.replace(/`/g, "").toLowerCase();
+            // const parts: string[] = unsplit.split(" ");
 
-
-
-            const unsplit: string = message.content.replace(/`/g, "").toLowerCase();
-            const parts: string[] = unsplit.split(" ");
-
-            if (message.author.id !== this.client.user.id) {
-                for (let part in parts) {
-                    if (part !== (undefined || null || "")) {
-                        if (profanities.indexOf(parts[part]) > -1) {
-                            message.delete();
-                            return;
-                        }
-                    }
-                }
-            }
+            // if (message.author.id !== this.client.user.id) {
+            //     for (let part in parts) {
+            //         if (part !== (undefined || null || "")) {
+            //             if (profanities.indexOf(parts[part]) > -1) {
+            //                 message.delete();
+            //                 return;
+            //             }
+            //         }
+            //     }
+            // }
 
             if (message.content[0] === "!" && message.content[1] !== " ") {
                 let regex: RegExp = /!(\D+)/;
