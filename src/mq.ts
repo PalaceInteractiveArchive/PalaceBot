@@ -1,12 +1,15 @@
 import * as amqp from 'amqplib/callback_api';
 import Rank from './ranks';
 import { DiscordBot } from './server';
+import Discord from 'discord.js';
 
 export default class MessageQueue {
-    private discordInstance: DiscordBot
+    private discordInstance: DiscordBot;
+    private recentlySent: Array<{ date: string }>;
 
     constructor(instance: DiscordBot) {
         this.discordInstance = instance;
+        this.recentlySent = [];
     }
 
     public initQueue() {
@@ -123,6 +126,38 @@ export default class MessageQueue {
                                         this.discordInstance.setUserRole(roles, packet.user, packet.username)
                                     }
                                 })
+                            } else if (packet.id === 2) {
+                                let lastPost = this.recentlySent[this.recentlySent.length - 1];
+                                let post = true;
+
+                                if (lastPost !== undefined) {
+                                    var diff =(new Date().getTime() - new Date(lastPost.date).getTime()) / 1000;
+                                    diff /= 60;
+                                    var delta = Math.abs(Math.round(diff));
+                                    if (delta < 1) post = false;
+                                }
+                                // post = false;
+                                if (post) {
+                                    const showEmbed = new Discord.MessageEmbed()
+                                        .setColor(packet.color)
+                                        .setTitle(packet.title.replace(/-/g, " "))
+                                        .setImage(packet.image)
+                                        .setThumbnail('https://avatars.githubusercontent.com/u/16235389?s=400&v=4')
+                                        .setFooter('Palace Bot', 'https://avatars.githubusercontent.com/u/16235389?s=400&v=4')
+                                        .setDescription(packet.desc.replace(/-/g, " ") + "\n")
+                                        .addField('Where to Watch:', packet.whereToWatch.replace(/-/g, " "), false)
+                                        .addField('Starting in:', packet.startTime.replace(/-/g, " "), false)
+                                        .setTimestamp();
+                                
+                                    const chn = this.discordInstance.getPalaceGuild().channels.cache.get(packet.channelId) as Discord.TextChannel;
+
+                                    if (chn) {
+                                        chn.send("<@&827805013141094420>");
+                                        chn.send(showEmbed);
+                                        let d = new Date().toString();
+                                        this.recentlySent.push({date: d})
+                                    }
+                                }
                             }
                         }
                     } catch (e) {
