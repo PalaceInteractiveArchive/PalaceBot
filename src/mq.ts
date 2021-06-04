@@ -145,14 +145,16 @@ export default class MessageQueue {
                                         .setThumbnail('https://avatars.githubusercontent.com/u/16235389?s=400&v=4')
                                         .setFooter('Palace Bot', 'https://avatars.githubusercontent.com/u/16235389?s=400&v=4')
                                         .setDescription(packet.desc.replace(/-/g, " ") + "\n")
-                                        .addField('Where to Watch:', packet.whereToWatch.replace(/-/g, " "), false)
+                                        .addField('Where to watch:', packet.whereToWatch.replace(/-/g, " "), false)
                                         .addField('Starting in:', packet.startTime.replace(/-/g, " "), false)
                                         .setTimestamp();
                                 
                                     const chn = this.discordInstance.getPalaceGuild().channels.cache.get(packet.channelId) as Discord.TextChannel;
 
                                     if (chn) {
-                                        chn.send("<@&827805013141094420>");
+                                        if (packet.ping) {
+                                            chn.send("<@&827805013141094420>");
+                                        }
                                         chn.send(showEmbed);
                                         let d = new Date().toString();
                                         this.recentlySent.push({date: d})
