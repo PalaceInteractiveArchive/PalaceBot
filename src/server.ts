@@ -100,8 +100,12 @@ export class DiscordBot {
             let member = members.find(member => member.id == user);
             if (member !== undefined) {
                 if (removeUserRoles) {
-                    member.roles.set([])
-                    .catch(err => console.log("Error " + err));
+                    for(let role in Rank) {
+                        if (member.roles.cache.has(role)) {
+                            member.roles.remove(role)
+                            .catch(err => console.log("Error " + err));
+                        }
+                    }
                 }
                 roles.forEach((role) => {
                     member.roles.add(role.toString())
